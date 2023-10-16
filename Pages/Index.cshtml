@@ -1,10 +1,32 @@
-﻿@page
+@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Home Page";
 }
+<head>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/RedApp_Webapp.styles.css" asp-append-version="true" />
+</head>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+<div class="container">
+    <div class="row mt-4">
+        <div class="col">
+            <h2>New Movies</h2>
+            <div class="row">
+                <!-- Movie cards go here -->
+                <div class="col-md-3 mb-4">
+                    <div class="card">
+                        <img src="/images/taylorswift.jpg" class="card-img-top" alt="Movie Poster">
+                        <div class="card-body">
+                            <h5 class="card-title">Taylor Swift The Eras Tour </h5>
+                            <p class="card-text">The cultural phenomenon continues as pop icon Taylor Swift performs hit songs in a once-in-a-lifetime concert experience.</p>
+                            <a href="https://www.youtube.com/watch?v=2YS8IplgAYE" class="btn btn-primary">Watch Trailer</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add more movie cards as needed -->
+            </div>
+        </div>
+    </div>
 </div>
