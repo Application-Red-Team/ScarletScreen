@@ -7,28 +7,48 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/RedApp_Webapp.styles.css" asp-append-version="true" />
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-black navbar-light border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">ScarletScreen</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                <!-- Webpage Title -->
+                <a class="navbar-brand order-md-1" asp-area="" asp-page="/Index"> <span class="text-red font-weight-bold">Scarlet</span>Screen </a>
+                <button class="navbar-toggler order-first" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between align-items-center w-100 order-md-2">
+                    <ul class="navbar-nav mr-auto">
+                        <!-- Left-aligned items -->
+                    </ul>
+                    <div class="navbar-nav">
+                        <!-- Right-aligned items -->
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-page="/Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-page="/Privacy">Privacy</a>
+                            <a class="nav-link text-light" asp-area="" asp-page="/Watchlist">Watchlist</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-light" asp-area="" asp-page="/Login">Login</a>
                         </li>
-                    </ul>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="" asp-page="/CreateAccount">Create Account</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="" asp-page="/Profile">Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <span id="searchIcon" class="nav-link text-light">
+                                <i class="fa fa-search"></i>
+                            </span>
+                            <div id="searchBar" class="d-none">
+                                <input type="text" class="form-control" placeholder="Search...">
+                            </div>
+                        </li>
+                    </div>
                 </div>
             </div>
         </nav>
