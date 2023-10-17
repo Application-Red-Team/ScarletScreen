@@ -45,11 +45,15 @@ body {
 /* New Movie Section */
 .card-body {
     margin: 0;
-    padding: 0;
+    padding: 10px;
+    color: black;  
 }
 
+
+
 .card {
-    border: none; /* Remove card border */
+    border: solid; /* Gives spacing around image */
+    background: white
 }
 
 .card-img-top {
