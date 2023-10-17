@@ -46,14 +46,14 @@ body {
 .card-body {
     margin: 0;
     padding: 10px;
-    color: black;  
+    color: black;
 }
 
 
 
 .card {
     border: solid; /* Gives spacing around image */
-    background: white
+    background: white;
 }
 
 .card-img-top {
