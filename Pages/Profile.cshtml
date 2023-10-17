@@ -3,3 +3,141 @@
 @{
 	ViewData["Title"] = "Profile";
 }
+<head>
+    <link rel="stylesheet" href="~/css/profile.css" asp-append-version="true" />
+</head>
+
+
+<div class="profile">
+    <div class="profile-header">
+        <img src="images/megamind.jpg" alt="Profile Picture" class="profile-picture" />
+        <div class="profile-info">
+            <h2>@Model.Username</h2>
+            <p>Bio: Megamind 10/10.</p>
+            <button class="edit-profile-button">Edit Profile</button>
+        </div>
+    </div>
+    <div class="profile-bar"></div>
+        <!-- Stats Section -->
+        <h3>Statistics</h3>
+        <div class="statistics-box">
+            <div class="genre-container">
+          <div class="row">
+            <div class="col-md-4">
+                <div class="genre">
+                    <div class="genre-name">Action</div>
+                    <div class="percentage-bar">
+                        <div class="percentage" style="width: 30%;"></div>
+                    </div>
+                    <div class="percentage-value">30%</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="genre">
+                    <div class="genre-name">Comedy</div>
+                    <div class="percentage-bar">
+                        <div class="percentage" style="width: 60%;"></div>
+                    </div>
+                    <div class="percentage-value">60%</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="genre">
+                    <div class="genre-name">Drama</div>
+                    <div class="percentage-bar">
+                        <div class="percentage" style="width: 0%;"></div>
+                    </div>
+                    <div class="percentage-value">0%</div>
+                </div>
+            </div>
+            </div>
+            <!-- Repeat the above three columns for each genre -->
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="genre">
+                        <div class="genre-name">Romance</div>
+                        <div class="percentage-bar">
+                            <div class="percentage" style="width: 5%;"></div>
+                        </div>
+                        <div class="percentage-value">5%</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="genre">
+                        <div class="genre-name">Mystery</div>
+                        <div class="percentage-bar">
+                            <div class="percentage" style="width: 0%;"></div>
+                        </div>
+                        <div class="percentage-value">0%</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="genre">
+                        <div class="genre-name">Sci-Fi</div>
+                        <div class="percentage-bar">
+                            <div class="percentage" style="width: 0%;"></div>
+                        </div>
+                        <div class="percentage-value">0%</div>
+                    </div>
+                </div>
+            </div>
+            <!-- Repeat the above three columns for each genre -->
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="genre">
+                        <div class="genre-name">Horror</div>
+                        <div class="percentage-bar">
+                            <div class="percentage" style="width: 0%;"></div>
+                        </div>
+                        <div class="percentage-value">0%</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="genre">
+                        <div class="genre-name">Historical</div>
+                        <div class="percentage-bar">
+                            <div class="percentage" style="width: 0%;"></div>
+                        </div>
+                        <div class="percentage-value">0%</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="genre">
+                        <div class="genre-name">Fantasy</div>
+                        <div class="percentage-bar">
+                            <div class="percentage" style="width: 5%;"></div>
+                        </div>
+                        <div class="percentage-value">5%</div>
+                    </div>
+                </div>
+            </div>
+            <!-- Repeat the above three columns for each genre -->
+        </div>
+
+
+    <!-- Ratings Section -->
+    <div class="ratings">
+        <h3>Ratings</h3>
+        <!-- Add your ratings display here -->
+    </div>
+
+    <!-- Watched Movies Section -->
+    <div class="watched-movies">
+        <h3>Watched Movies</h3>
+        <!-- Add your list of watched movies here -->
+    </div>
+
+    <!-- Watchlist Section -->
+    <div class="watchlist">
+        <h3>Watchlist</h3>
+        <!-- Add your watchlist content here -->
+    </div>
+</div>
+</div>
+    </div>
+
+
+
+        
+
+

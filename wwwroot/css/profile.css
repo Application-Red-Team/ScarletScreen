@@ -1,0 +1,99 @@
+﻿.profile {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: black;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.profile-picture {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.profile-info {
+    margin-left: 20px;
+}
+
+.edit-profile-button {
+    background-color: #FF2400;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.profile-content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.ratings, .watched-movies, .watchlist {
+    flex-basis: 30%;
+}
+
+.profile-bar {
+    height: 5px;
+    background-color: white; /* Change color as needed */
+    margin-bottom: 20px;
+}
+
+.statistics-box {
+    display: inline-block;
+    width: 100%; /* Adjust the width as needed */
+    vertical-align: top; /* Align with the top of the content */
+    margin-top: 0px; /* Add some space between "Statistics" and the box */
+}
+
+.statistics-row {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+.genre-container {
+    border: 2px solid #FF2400;
+    border-radius: 8px;
+    padding: 20px; /* Adjusted padding value */
+    margin: 20px; /* Adjusted margin value */
+}
+
+.genre-name {
+    font-weight: bold;
+}
+
+.percentage-bar {
+    width: 100%;
+    background-color: #ccc;
+    height: 10px;
+    border-radius: 5px;
+    margin-top: 5px;
+    position: relative;
+}
+
+.percentage {
+    height: 100%;
+    border-radius: 5px;
+    background-color: tomato;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.percentage-value {
+    text-align: center;
+    margin-top: 5px;
+    font-weight: bold;
+}
+
+/* Rest of your CSS remains the same */
