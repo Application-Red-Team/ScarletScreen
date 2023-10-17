@@ -96,4 +96,37 @@
     font-weight: bold;
 }
 
-/* Rest of your CSS remains the same */
+.movie-list {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+
+.movie {
+    flex: 0 0 calc(13.33% - 10px);
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.movie-poster {
+    width: 100%;
+    height: 190px; /* Set a specific height for the posters */
+    object-fit: cover; /* Ensure the image covers the specified dimensions */
+    border: 1px solid #ddd; /* Optional border for posters */
+}
+
+.movie-title {
+    text-align: center;
+    margin-top: 5px;
+    font-weight: bold;
+}
+
+.stars {
+    text-align: center;
+    font-size: 15px; /* Adjust as needed */
+}
+
+.view-more-link {
+    display: block;
+    text-align: center;
+}
