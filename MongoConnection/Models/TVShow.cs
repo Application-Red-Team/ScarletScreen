@@ -36,8 +36,6 @@
         [BsonElement("USContentRating")]
         public string USContentRating { get; set; }
 
-        // Add other properties as needed
-
         // Grabbing only the US Content Rating
         public void SetUSContentRating(List<ContentRating> contentRatings)
         {
