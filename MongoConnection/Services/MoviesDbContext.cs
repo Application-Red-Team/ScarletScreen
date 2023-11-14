@@ -1,20 +1,22 @@
 ﻿namespace ScarletScreen.MongoConnection.Services 
-{ 
-    using Microsoft.Extensions.Options;
-    using MongoDB.Driver;
+{
     using ScarletScreen.MongoConnection.Models;
+    using MongoDB.Driver;
+    using MongoDB.Driver.Linq;
 
     public class MoviesDbContext
     {
-        private readonly IMongoDatabase _database;
+        private readonly IMongoCollection<Movie> _moviesCollection;
 
-        public MoviesDbContext(IOptions<DatabaseSettings> settings)
+        public MoviesDbContext(IMongoDatabase database)
         {
-            var client = new MongoClient(settings.Value.ConnectionString);
-            _database = client.GetDatabase(settings.Value.MoviesDatabaseName);
+            _moviesCollection = database.GetCollection<Movie>("Movies");
         }
 
-        public IMongoCollection<Movie> Movies => _database.GetCollection<Movie>("movies");
-        // Add other collections as needed
-}
+        public Movie GetMovieByTitle(string title)
+        {
+            // Use LINQ to query the MongoDB collection
+            return _moviesCollection.AsQueryable().FirstOrDefault(movie => movie.Title.Contains(title));
+        }
+    }
 }

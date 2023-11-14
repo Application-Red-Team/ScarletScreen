@@ -1,20 +1,22 @@
-﻿namespace ScarletScreen.MongoConnection.Services 
-{ 
+﻿namespace ScarletScreen.MongoConnection.Services
+{
     using Microsoft.Extensions.Options;
     using MongoDB.Driver;
     using ScarletScreen.MongoConnection.Models;
 
     public class TVDbContext
+{
+    private readonly IMongoCollection<TVShow> _tvShowsCollection;
+
+    public TVDbContext(IMongoDatabase database)
     {
-        private readonly IMongoDatabase _database;
+        _tvShowsCollection = database.GetCollection<TVShow>("TVShows");
+    }
 
-        public TVDbContext(IOptions<DatabaseSettings> settings)
-        {
-            var client = new MongoClient(settings.Value.ConnectionString);
-            _database = client.GetDatabase(settings.Value.TVDatabaseName);
-        }
-
-        public IMongoCollection<TVShow> TVShow => _database.GetCollection<TVShow>("shows");
-        // Add other collections as needed
+    public TVShow GetTVShowByTitle(string title)
+    {
+        // Use LINQ to query the MongoDB collection
+        return _tvShowsCollection.AsQueryable().FirstOrDefault(tvShow => tvShow.Title.Contains(title));
+    }
 }
 }

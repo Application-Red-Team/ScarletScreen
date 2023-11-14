@@ -1,6 +1,6 @@
 ﻿using ScarletScreen.MongoConnection.Services;
 
-    public class Startup
+public class Startup
     {
         public Startup(IConfiguration configuration)
     {
