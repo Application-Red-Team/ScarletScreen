@@ -15,8 +15,12 @@
 
     public TVShow GetTVShowByTitle(string title)
     {
-        // Use LINQ to query the MongoDB collection
         return _tvShowsCollection.AsQueryable().FirstOrDefault(tvShow => tvShow.Title.Contains(title));
+    }
+
+    public async Task AddTVShow(TVShow tvShow)
+    {
+        await _tvShowsCollection.InsertOneAsync(tvShow);
     }
 }
 }

@@ -1,10 +1,12 @@
 ﻿namespace ScarletScreen.MongoConnection.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
+    using ScarletScreen.MongoConnection.Models;
     using ScarletScreen.MongoConnection.Services;
     using System;
     using System.Linq;
     using System.Threading.Tasks;
+    using TMDbLib.Client;
 
     [ApiController]
     [Route("api/search")]
@@ -12,19 +14,24 @@
     {
         private readonly MoviesDbContext _moviesDbContext;
         private readonly TVDbContext _tvDbContext;
+        private readonly TMDbClient _tmdbClient;
 
-        public SearchController(MoviesDbContext moviesDbContext, TVDbContext tvDbContext)
+        public SearchController(MoviesDbContext moviesDbContext, TVDbContext tvDbContext, IConfiguration configuration)
         {
             _moviesDbContext = moviesDbContext;
             _tvDbContext = tvDbContext;
+
+            // Configure TMDbClient with API key
+            var apiKey = configuration["TMDb:ApiKey"];
+            _tmdbClient = new TMDbClient(apiKey);
         }
 
         [HttpGet]
-        public IActionResult Search(string query)
+        public async Task<IActionResult> Search(string query)
         {
             try
             {
-                // Search in movie and TV databases
+                // Search in your movie and TV databases
                 var movieResult = _moviesDbContext.GetMovieByTitle(query);
                 var tvResult = _tvDbContext.GetTVShowByTitle(query);
 
@@ -38,6 +45,28 @@
                 }
                 else
                 {
+                    // If not found, query TMDb
+                    var tmdbResult = await SearchTMDb(query);
+
+                    if (tmdbResult != null)
+                    {
+                        // Determine if it's a movie or TV show from TMDb
+                        if (tmdbResult is Movie tmdbMovie)
+                        {
+                            // Add the movie to the local Movies database
+                            _moviesDbContext.AddMovie(tmdbMovie);                            
+
+                            return Ok(new { Type = "Movie", Result = tmdbMovie });
+                        }
+                        else if (tmdbResult is TVShow tmdbTVShow)
+                        {
+                            // Add the TV show to the local TVShows database
+                            _tvDbContext.AddTVShow(tmdbTVShow);
+
+                            return Ok(new { Type = "TVShow", Result = tmdbTVShow });
+                        }
+                    }
+            
                     return NotFound("No results found.");
                 }
             }
@@ -45,6 +74,17 @@
             {
                 return BadRequest($"Error searching: {ex.Message}");
             }
+        }
+
+        private async Task<object> SearchTMDb(string query)
+        {
+            // Use TMDbLib to query TMDb API
+            var searchResults = await _tmdbClient.SearchMovieAsync(query);
+
+            // For simplicity, just return the first result
+            var firstResult = searchResults?.Results?.FirstOrDefault();
+
+            return firstResult;
         }
     }
 }
