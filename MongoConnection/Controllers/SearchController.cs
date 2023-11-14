@@ -14,16 +14,14 @@
     {
         private readonly MoviesDbContext _moviesDbContext;
         private readonly TVDbContext _tvDbContext;
-        private readonly TMDbClient _tmdbClient;
+        private readonly TMDbService _tmdbService;
 
-        public SearchController(MoviesDbContext moviesDbContext, TVDbContext tvDbContext, IConfiguration configuration)
+        public SearchController(MoviesDbContext moviesDbContext, TVDbContext tvDbContext, IConfiguration configuration, TMDbService tmdbService)
         {
             _moviesDbContext = moviesDbContext;
             _tvDbContext = tvDbContext;
 
-            // Configure TMDbClient with API key
-            var apiKey = configuration["TMDb:ApiKey"];
-            _tmdbClient = new TMDbClient(apiKey);
+            _tmdbService = tmdbService;
         }
 
         [HttpGet]
@@ -78,8 +76,9 @@
 
         private async Task<object> SearchTMDb(string query)
         {
+            var tmdbClient = _tmdbService.GetTMDbClient();
             // Use TMDbLib to query TMDb API
-            var searchResults = await _tmdbClient.SearchMovieAsync(query);
+            var searchResults = await tmdbClient.SearchMovieAsync(query);
 
             // For simplicity, just return the first result
             var firstResult = searchResults?.Results?.FirstOrDefault();

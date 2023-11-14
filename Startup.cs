@@ -18,6 +18,8 @@ public class Startup
         // Add the MongoDB context
         services.AddSingleton<MoviesDbContext>();
         services.AddSingleton<TVDbContext>();
+        services.AddSingleton<TMDbService>();
+
 
         // Other service configurations...
     }

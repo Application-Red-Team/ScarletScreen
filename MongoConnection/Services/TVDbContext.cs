@@ -5,22 +5,36 @@
     using ScarletScreen.MongoConnection.Models;
 
     public class TVDbContext
-{
-    private readonly IMongoCollection<TVShow> _tvShowsCollection;
-
-    public TVDbContext(IMongoDatabase database)
     {
-        _tvShowsCollection = database.GetCollection<TVShow>("TVShows");
-    }
+        private readonly IMongoCollection<TVShow> _tvShowsCollection;
+        private readonly TMDbService _tmdbService;
 
-    public TVShow GetTVShowByTitle(string title)
-    {
-        return _tvShowsCollection.AsQueryable().FirstOrDefault(tvShow => tvShow.Title.Contains(title));
-    }
+        public TVDbContext(IMongoDatabase database, TMDbService tmdbService)
+        {
+            _tvShowsCollection = database.GetCollection<TVShow>("TVShows");
+            _tmdbService = tmdbService;
+        }
 
-    public async Task AddTVShow(TVShow tvShow)
-    {
-        await _tvShowsCollection.InsertOneAsync(tvShow);
+        public TVShow GetTVShowByTitle(string title)
+        {
+            // Renamed Name Field on TVShow.cs to Title for parity with movie method
+            return _tvShowsCollection.AsQueryable().FirstOrDefault(tvShow => tvShow.Name.Contains(title));
+        }
+
+        public async Task AddTVShow(TVShow tvShow)
+        {
+            var tmdbClient = _tmdbService.GetTMDbClient();
+        
+            // Use tmdbClient to fetch detailed information about the TV show
+            var tmdbTVShowDetails = await tmdbClient.GetTvShowAsync(tvShow.TMDbId);
+
+            // Extract content rating information
+            var contentRatings = tmdbTVShowDetails.ContentRatings;
+
+            /*
+                TODO!!!
+                Process Content Ratings
+            */
+        }
     }
-}
 }
