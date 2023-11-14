@@ -1,28 +1,26 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+﻿using ScarletScreen.MongoConnection.Services;
 
-namespace YourNamespace
-{
     public class Startup
     {
         public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
+    {
+        Configuration = configuration;
+    }
 
-        public IConfiguration Configuration { get; }
+    public IConfiguration Configuration { get; }
 
-        public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddRazorPages();
-            services.AddIdentity<IdentityUser, IdentityRole>();
-            // Add other services as needed
-        }
+    public void ConfigureServices(IServiceCollection services)
+    {
+        // Add the DatabaseSettings configuration
+        services.Configure<DatabaseSettings>(
+            Configuration.GetSection(nameof(DatabaseSettings)));
 
+        // Add the MongoDB context
+        services.AddSingleton<MoviesDbContext>();
+        services.AddSingleton<TVDbContext>();
+
+        // Other service configurations...
+    }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -50,4 +48,3 @@ namespace YourNamespace
             });
         }
     }
-}
