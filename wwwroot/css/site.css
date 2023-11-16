@@ -15,8 +15,9 @@ html {
 
 body {
     margin-bottom: 60px;
-    background-color: black;
-    color: white; /* Set text color to white for better contrast */
+    background-color: white;
+    color: black; /* Set text color to white for better contrast */
+    font-family: 'Exo', sans-serif;
 }
 
 
@@ -26,21 +27,39 @@ body {
 }
 
 .navbar-brand {
-    font-family: 'Source Sans Pro', sans-serif;
+    font-family: 'Exo', sans-serif;
     font-size: 2em; /* Adjust as needed */
 }
 
 
 /* Search Bar */
 #searchBar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: none; /* Initially hide the search bar */
+    position: absolute;
+    top: 100%; /* Position below the search button */
+    left: 0;
+}
+
+    #searchBar.active {
+        display: block; /* Show the search bar when it's active */
+    }
+
+@media (min-width: 576px) {
+    #searchBar {
+        position: static; /* Reset position for larger screens */
+        display: flex;
+        align-items: center;
+    }
 }
 
     #searchBar input {
         width: 200px; /* Adjust as needed */
+        transition: width 0.3s ease; /* Smooth transition for width changes */
     }
+
+        #searchBar input:focus {
+            width: 300px; /* Adjust the expanded width as needed */
+        }
 
 /* New Movie Section */
 .card-body {

@@ -5,3 +5,8 @@
 document.getElementById('searchIcon').addEventListener('click', function () {
     document.getElementById('searchBar').classList.toggle('d-none');
 });
+$(document).ready(function () {
+    $('#searchIcon').click(function () {
+        $('#searchBar').toggleClass('active');
+    });
+});
