@@ -1,7 +1,15 @@
+using ScarletScreen.Model;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+builder.Services.AddDbContext<AccountsContext>(options =>
+{
+    options.UseSqlServer("Server=DESKTOP-Q9342B9;Database=Accounts;Trusted_Connection=True;TrustServerCertificate=True;");
+});
 
 var app = builder.Build();
 
