@@ -24,18 +24,21 @@
             </div>
         </div>
         <div class="col-md-6">
-            <form>
+            <form method="post">
                 <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" class="form-control" id="username" placeholder="Enter your username">
+                    <label asp-for="Account.user">Username</label>
+                    <input asp-for="Account.user" class="form-control" placeholder="Enter your username">
+                    <span asp-validation-for="Account.user" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label for="email">Email address</label>
-                    <input type="email" class="form-control" id="email" placeholder="Enter your email">
+                    <label asp-for="Account.email">Email</label>
+                    <input asp-for="Account.email" class="form-control" placeholder="Enter your email">
+                    <span asp-validation-for="Account.email" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" class="form-control" id="password" placeholder="At least 8 characters">
+                    <label asp-for="Account.pass">Password</label>
+                    <input asp-for="Account.pass" class="form-control" placeholder="Enter your password">
+                    <span asp-validation-for="Account.pass" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label for="password">Re-enter Password</label>
