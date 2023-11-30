@@ -1,0 +1,34 @@
+﻿@page
+@model ScarletScreen.Pages.EditProfileModel
+@{
+	ViewData["Title"] = "EditProfile";
+}
+<head>
+    <link rel="stylesheet" href="~/css/editprofile.css" asp-append-version="true" />
+    <link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+    <div class="edit-profile">
+        <h1>Edit Profile</h1>
+        <form id="profileForm">
+
+            <!-- Profile Picture -->
+            <label for="profile-picture" class="upload-btn">Upload Profile Picture</label>
+            <input type="file" id="profile-picture" name="profile-picture" style="display: none;">
+
+            <!-- Allow users to upload a new profile picture -->
+
+            <!-- Bio -->
+            <label for="bio">Bio:</label>
+            <textarea id="bio" name="bio">Current Bio</textarea>
+            <!-- Include the current bio as a placeholder or value -->
+
+            <button type="submit">Save Changes</button>
+        </form>
+    </div>
+
+    <script src="/js/editprofile.js"></script>
+    <!-- Include any necessary JavaScript files -->
+</body>
