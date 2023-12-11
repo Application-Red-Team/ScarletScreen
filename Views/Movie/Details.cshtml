@@ -9,7 +9,7 @@
 
 <main class="movie-page">
     <div class="poster-container">
-        <img src="@Model.poster_path" alt="@Model.title" class="poster">
+        <img src="https://image.tmdb.org/t/p/original/@Model.poster_path" alt="@Model.title" class="poster">
         @* <div class="video-container">
         <!-- Replace the hardcoded iframe source with dynamic data if available -->
         @if (!string.IsNullOrEmpty(Model.TrailerUrl))
