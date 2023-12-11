@@ -44,4 +44,14 @@ app.UseAuthorization();
 
 app.MapRazorPages();
 
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "movieDetails",
+        pattern: "movies/{tmdb_id}",
+        defaults: new { controller = "Movie", action = "Details" });
+
+    endpoints.MapRazorPages();
+});
+
 app.Run();
