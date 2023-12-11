@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ScarletScreen.Model;
 
@@ -10,9 +11,11 @@ using ScarletScreen.Model;
 namespace ScarletScreen.Migrations
 {
     [DbContext(typeof(AccountsContext))]
-    partial class AccountsContextModelSnapshot : ModelSnapshot
+    [Migration("20231211063905_AddProfileInfo")]
+    partial class AddProfileInfo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,10 +45,6 @@ namespace ScarletScreen.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("pass")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("tmdbuserid")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
