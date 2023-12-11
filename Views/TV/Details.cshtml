@@ -1,0 +1,56 @@
+﻿@model ScarletScreen.Model.TVModel
+@{
+    ViewData["Title"] = Model.name;
+    Layout = "_Layout";
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/moviepage.css" asp-append-version="true" />
+</head>
+
+<main class="movie-page">
+    <div class="poster-container">
+        <img src="https://image.tmdb.org/t/p/original/@Model.poster_path" alt="@Model.name" class="poster">
+        @* <div class="video-container">
+        <!-- Replace the hardcoded iframe source with dynamic data if available -->
+        @if (!string.IsNullOrEmpty(Model.TrailerUrl))
+        {
+        <iframe src="@Model.TrailerUrl" frameborder="0" allowfullscreen></iframe>
+        }
+        </div> *@
+    </div>
+
+    <div class="movie-details">
+        <h1 class="title">@Model.name</h1>
+        <p class="description">@Model.overview</p>
+        <p class="seasons">Number of Seasons: @Model.number_of_seasons Seasons</p>
+        <p class="episodes">Number of Episodes: @Model.number_of_episodes Episodes</p>
+        <p class="popularity">Popularity: @Model.popularity</p>
+        <p class="certification">US Certification: @Model.us_certification</p>
+        <!--Genre Id stuff here-->
+        <p class="language">Original Language: @Model.original_language</p>
+        <!--Vote info here-->
+        <!--Release Date info here-->
+
+        <button id="watchNowBtn" class="btn btn-primary">Watch Now</button>
+
+        <!-- Create a modal for streaming options -->
+        <div id="streamingModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Streaming Options</h2>
+                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                <ul id="streamingserviceList">
+                    <!-- Add streaming service options dynamically with JavaScript -->
+                </ul>
+            </div>
+        </div>
+
+        <!-- Add other details as needed -->
+
+        <h1 class="title">Reviews</h1>
+        <p class="Reviews">User reviews go here.</p>
+    </div>
+
+    <!-- Rest of the content (cast & crew, reviews) goes here -->
+</main>
