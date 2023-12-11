@@ -33,14 +33,14 @@ namespace ScarletScreen.Controllers
 
             if (show == null)
             {
-                Console.WriteLine("Movie not found!");
+                Console.WriteLine("TV Show not found!");
                 return NotFound();
             }
 
-            Console.WriteLine($"Movie title: {show.name}");
+            Console.WriteLine($"TV Show Name: {show.name}");
                     // Add more debug lines as needed
 
-            return View(show);
+            return View("ShowDetails", show);
         }
     }
 }

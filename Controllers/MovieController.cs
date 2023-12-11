@@ -40,7 +40,7 @@ namespace ScarletScreen.Controllers
             Console.WriteLine($"Movie title: {movie.title}");
                     // Add more debug lines as needed
 
-            return View(movie);
+            return View("MovieDetails", movie);
         }
     }
 }
