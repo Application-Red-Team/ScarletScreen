@@ -15,9 +15,10 @@ builder.Configuration.AddJsonFile("appsettings.json");
 builder.Services.AddRazorPages();
 
 // Add MongoDB
-var mongoConnectionString = builder.Configuration.GetConnectionString("DatabaseSettings:ConnectionString");
+var configuration = builder.Configuration.GetSection("DatabaseSettings");
+var mongoConnectionString = configuration["ConnectionString"];
 var mongoClient = new MongoClient(mongoConnectionString);
-var mongoDatabaseName = builder.Configuration.GetValue<string>("DatabaseSettings:DatabaseName");
+var mongoDatabaseName = configuration["DatabaseName"];
 builder.Services.AddSingleton<IMongoDatabase>(mongoClient.GetDatabase(mongoDatabaseName));
 
 // Add SQL Server
