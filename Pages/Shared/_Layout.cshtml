@@ -1,3 +1,17 @@
+@using ScarletScreen.Model
+@using Microsoft.EntityFrameworkCore
+@using Microsoft.AspNetCore.Identity
+@inject AccountsContext dbContext
+
+@{
+    // Replace 'userId' with the actual user identifier (username, ID, etc.) you're checking for
+    string userIdToCheck = TempData["LoggedInUsername"]?.ToString(); // Replace this with actual user ID or username
+
+    // Query the database to check if the user exists
+    bool userExists = dbContext.users.Any(u => u.user == userIdToCheck); // Modify this query based on your actual database schema
+}
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,24 +42,31 @@
                         <!-- Left-aligned items -->
                     </ul>
                     <div class="navbar-nav">
-                        <!-- Right-aligned items 
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-page="/Watchlist">Watchlist</a>
-                        </li>-->
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-page="/Login">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-page="/CreateAccount">Create Account</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-page="/Profile">Profile</a>
-                        </li>
+                        @if (userExists)
+                        {
+                            <!-- Show links for authenticated users -->
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-page="/Profile">Profile</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-page="/Watchlist">Watchlist</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <!-- Show links for non-authenticated users -->
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-page="/Login">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-page="/CreateAccount">Create Account</a>
+                            </li>
+                        }
                         <li class="nav-item">
                             <span id="searchIcon" class="nav-link text-light">
                                 <i class="fa fa-search"></i>
                             </span>
-                            
+
                         </li>
                         <li>
                             <div id="searchBar" class="d-none">

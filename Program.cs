@@ -21,7 +21,7 @@ builder.Services.AddSingleton<IMongoDatabase>(mongoClient.GetDatabase(mongoDatab
 // Add SQL Server
 builder.Services.AddDbContext<AccountsContext>(options =>
 {
-    options.UseSqlServer("Server=DESKTOP-Q9342B9;Database=Accounts;Trusted_Connection=True;TrustServerCertificate=True;");
+    options.UseSqlServer("Server=GABES-PC\\MSSQLSERVER01;Database=Accounts;Trusted_Connection=True;TrustServerCertificate=True;");
 });
 
 // Configure Search Services

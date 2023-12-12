@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace YourNamespace
 {
@@ -18,8 +19,21 @@ namespace YourNamespace
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthorization();
             services.AddRazorPages();
+            services.AddHttpContextAccessor();
             services.AddIdentity<IdentityUser, IdentityRole>();
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            })
+         .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
+         {
+             options.Cookie.Name = "MovieCookie"; // Replace with your desired cookie name
+             options.ExpireTimeSpan = TimeSpan.FromMinutes(30); // Adjust as needed
+         });
             // Add other services as needed
         }
 
