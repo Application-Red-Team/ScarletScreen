@@ -25,7 +25,7 @@ namespace ScarletScreen.Services
             TMDbClient client = new TMDbClient(_apiKey);
 
             // Fetch movie details using the TMDb ID
-            Movie movie = await client.GetMovieAsync(tmdbId);
+            Movie movie = await client.GetMovieAsync(tmdbId, MovieMethods.Videos);
 
             return movie;
         }
@@ -47,16 +47,48 @@ namespace ScarletScreen.Services
             // Perform the search
             SearchContainer<SearchMovie> movieResults = await client.SearchMovieAsync(query);
 
-            // Process the search results
-            List<TmdbResult> tmdbResults = movieResults.Results
-                .Select(movie => MapToTmdbResult(movie))
-                .ToList();
+            // Process the search results asynchronously
+            var tasks = movieResults.Results.Select(movie => MapToTmdbResult(movie));
+            var tmdbResults = await Task.WhenAll(tasks);
 
-            return tmdbResults;
+            return tmdbResults.ToList();
+        }
+        public async Task<string?> GetUSCertification(int tmdbId)
+        {
+            TMDbClient client = new TMDbClient(_apiKey);
+
+            // Fetch movie release dates
+            ResultContainer<ReleaseDatesContainer> releaseDatesResult = await client.GetMovieReleaseDatesAsync(tmdbId);
+
+            // Extract the US certification using the provided logic
+            string? usCertification = ExtractUsCertification(releaseDatesResult);
+
+            return usCertification;
         }
 
-        private TmdbResult MapToTmdbResult(SearchMovie movie)
+        private static string? ExtractUsCertification(ResultContainer<ReleaseDatesContainer> releaseDatesResult)
         {
+            foreach (var result in releaseDatesResult.Results)
+            {
+                if (result.Iso_3166_1 == "US")
+                {
+                    foreach (var releaseDate in result.ReleaseDates)
+                    {
+                        var certification = releaseDate.Certification;
+                        if (!string.IsNullOrEmpty(certification))
+                        {
+                            return certification;
+                        }
+                    }
+                }
+            }
+
+            // If us_certification is not found, return a default value
+            return null;
+        }
+        private async Task<TmdbResult> MapToTmdbResult(SearchMovie movie)
+        {
+            var usCertification = await GetUSCertification(movie.Id);
             // Map TMDb search result to TmdbResult model defined in SearchModel
             return new TmdbResult
             {
@@ -70,11 +102,14 @@ namespace ScarletScreen.Services
                 release_date = movie.ReleaseDate,
                 title = movie.Title,
                 vote_average = movie.VoteAverage,
-                vote_count = movie.VoteCount
+                vote_count = movie.VoteCount,
+                us_certification = usCertification
             };
         }
-        private MovieModel MapToMovieModel(SearchMovie movie)
+        private async Task<MovieModel> MapToMovieModel(SearchMovie movie)
         {
+            var usCertification = await GetUSCertification(movie.Id);
+
             return new MovieModel
             {
                 tmdb_id = movie.Id,
@@ -87,9 +122,9 @@ namespace ScarletScreen.Services
                 original_language = movie.OriginalLanguage,
                 vote_average = movie.VoteAverage,
                 vote_count = movie.VoteCount,
-                release_date = movie.ReleaseDate
+                release_date = movie.ReleaseDate,
+                us_certification = usCertification
             };
         }
-
     }
 }

@@ -11,7 +11,7 @@ namespace ScarletScreen.Controllers
     public class MovieController : Controller
     {
         private readonly IMongoCollection<MovieModel> _movieCollection;
-        private readonly TMDbService _tmdbService; // Inject TMDbService
+        private readonly TMDbService _tmdbService;
 
         public MovieController(IMongoDatabase database, TMDbService tmdbService)
         {
@@ -41,14 +41,19 @@ namespace ScarletScreen.Controllers
                 // Fetch movie details from TMDb using the tmdb_id
                 var tmdbResult = await _tmdbService.GetMovieDetails(tmdbId);
 
+                // Fetch US certification for the movie
+                var usCertification = await _tmdbService.GetUSCertification(tmdbId);
+
                 // Convert TMDb Movie to MovieModel
                 var localMovie = MovieModelConverter.FromTMDbMovie(tmdbResult);
 
-                // Update the local database with TMDb data
+                // Update the local movie with US certification
+                localMovie.us_certification = usCertification;
+
+                // Update the local database with TMDb data and US certification
                 _movieCollection.InsertOne(localMovie);
 
                 movie = localMovie;
-
             }
 
             if (movie == null)

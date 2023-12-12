@@ -7,7 +7,6 @@
             // Convert TMDb Movie to MovieModel
             return new MovieModel
             {
-                // Map properties accordingly
                 tmdb_id = tmdbMovie.Id,
                 title = tmdbMovie.Title,
                 overview = tmdbMovie.Overview,
@@ -19,7 +18,8 @@
                 original_language = tmdbMovie.OriginalLanguage,
                 vote_average = tmdbMovie.VoteAverage,
                 vote_count = tmdbMovie.VoteCount,
-                release_date = tmdbMovie.ReleaseDate
+                release_date = tmdbMovie.ReleaseDate,
+                WatchProviders = tmdbMovie.WatchProviders
             };
         }
     }

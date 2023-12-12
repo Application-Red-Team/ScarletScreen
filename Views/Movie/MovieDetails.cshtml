@@ -27,7 +27,17 @@
         <p class="description">@Model.overview</p>
         <p class="runtime">Runtime: @Model.runtime minutes</p>
         <p class="popularity">Popularity: @Model.popularity</p>
-        <p class="certification">US Certification: @Model.us_certification</p>
+        <p class="certification">
+            @if (Model.us_certification == "NR")
+            {
+                <text>MPAA Rating: Not Rated</text>
+            }
+            else
+            {
+                <text>MPAA Rating: @Model.us_certification</text>
+            }
+        </p>
+
         <p class="genres">Genres: @string.Join(", ", @Model.genres.Select(genre => genre.Name))</p>
         <p class="language">Original Language: @GetLanguageName(@Model.original_language)</p>
         <p class="vote-count">Vote Count: @Model.vote_count</p>
