@@ -55,7 +55,7 @@ namespace ScarletScreen.Controllers
 
                 movie = localMovie;
             }
-
+            // Backup in case an id is entered that does not exist
             if (movie == null)
             {
                 Console.WriteLine("Movie not found in TMDb either.");
@@ -63,7 +63,6 @@ namespace ScarletScreen.Controllers
             }
 
             Console.WriteLine($"Movie title: {movie.title}");
-            // Add more debug lines as needed
 
             return View("MovieDetails", movie);
         }

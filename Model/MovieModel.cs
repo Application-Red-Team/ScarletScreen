@@ -25,7 +25,7 @@
         public double vote_average { get; set; }
         public int vote_count { get; set; }
         public DateTime? release_date { get; set; }
-        public string? trailer_id { get; set; }
+        public string? VideoKey { get; set; }
         [BsonElement("watch/providers")]
         public SingleResultContainer<Dictionary<string, WatchProviders>> WatchProviders { get; set; }
     }

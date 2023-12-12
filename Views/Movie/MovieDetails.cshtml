@@ -41,13 +41,14 @@
     <div style="border: 2px solid black; padding: 20px;">
     <div class="poster-container">
         <img src="https://image.tmdb.org/t/p/original/@Model.poster_path" alt="@Model.title" class="poster">
-        @* <div class="video-container">
+        
+        <div class="video-container">
         <!-- Replace the hardcoded iframe source with dynamic data if available -->
-        @if (!string.IsNullOrEmpty(Model.TrailerUrl))
+        @if (!string.IsNullOrEmpty(Model.VideoKey))
         {
-        <iframe src="@Model.TrailerUrl" frameborder="0" allowfullscreen></iframe>
+        <a href src="https://www.youtube.com/watch?v=@Model.VideoKey" frameborder="0" allowfullscreen></a>
         }
-        </div> *@
+        </div>
     </div>
 
     <div class="movie-details">
