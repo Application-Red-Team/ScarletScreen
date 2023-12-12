@@ -47,10 +47,11 @@
                         </li>
                         <li>
                             <div id="searchBar" class="d-none">
-                                <form class="form-inline">
-                                    <input type="text" class="form-control" placeholder="Search...">
+                                <form class="form-inline" asp-action="Search" asp-controller="Home" method="get">
+                                    <input type="text" class="form-control" placeholder="Search..." name="query">
                                 </form>
                             </div>
+
                         </li>
                     </div>
                 </div>

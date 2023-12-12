@@ -1,0 +1,38 @@
+﻿@model ScarletScreen.Model.SearchViewModel
+@{
+    ViewData["Title"] = "Search Results";
+    Layout = "_Layout";
+}
+
+<h1>Search Results</h1>
+
+@if (Model.TmdbResults != null && Model.TmdbResults.Any())
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Release Date</th>
+                <!-- Add more headers based on your TMDb result properties -->
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var tmdbResult in Model.TmdbResults)
+            {
+                <tr>
+                    <td><a href="movies/@tmdbResult.id">
+                <img src="https://image.tmdb.org/t/p/original/@tmdbResult.poster_path" alt="@tmdbResult.title" width="200" height="300"/>
+                </a</td>
+                    <td><a href="@Url.Action("Details", "Movie", new { tmdb_id = tmdbResult.id })">@tmdbResult.title</a></td>
+                    <td>@tmdbResult.release_date?.ToShortDateString()</td>
+                    <!-- Add more cells based on your TMDb result properties -->
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h2>No Results Found</h2>
+    <p>Sorry, no results were found for your search query.</p>
+}

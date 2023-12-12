@@ -30,7 +30,16 @@
         <p class="genres">Genres: @string.Join(", ", Model.genre_ids)</p>
         <p class="language">Original Language: @Model.original_language</p>
         <p class="vote-count">Vote Count: @Model.vote_count</p>
-        <p class="release-date">Release Date: @Model.release_date.ToShortDateString()</p>
+        <div>
+            @if (@Model.release_date.HasValue)
+            {
+                <span>Release Date: @Model.release_date.Value.ToShortDateString()</span>
+            }
+            else
+            {
+                <span>Release Date: Unknown</span>
+            }
+        </div>
         <!--Trailer URL here-->
 
         <button id="watchNowBtn" class="btn btn-primary">Watch Now</button>

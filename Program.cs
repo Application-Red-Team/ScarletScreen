@@ -1,10 +1,7 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
-using ScarletScreen.Model;
 using MongoDB.Driver;
+using ScarletScreen.Model;
+using ScarletScreen.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +23,10 @@ builder.Services.AddDbContext<AccountsContext>(options =>
 {
     options.UseSqlServer("Server=DESKTOP-Q9342B9;Database=Accounts;Trusted_Connection=True;TrustServerCertificate=True;");
 });
+
+// Configure Search Services
+builder.Services.AddScoped<MongoDBService>();
+builder.Services.AddScoped<TMDbService>();
 
 var app = builder.Build();
 
@@ -55,7 +56,10 @@ app.UseEndpoints(endpoints =>
         name: "tvDetails",
         pattern: "tv/{tmdb_id}",
         defaults: new { controller = "TV", action = "Details" });
-
+    endpoints.MapControllerRoute(
+        name: "search",
+        pattern: "/search/{query?}",
+        defaults: new { controller = "Home", action = "Search" });
     endpoints.MapRazorPages();
 });
 
