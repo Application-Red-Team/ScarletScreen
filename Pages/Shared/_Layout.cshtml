@@ -16,7 +16,9 @@
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-black navbar-light border-bottom box-shadow mb-3">
             <div class="container">
                 <!-- Webpage Title -->
-                <a class="navbar-brand order-md-1" asp-area="" asp-page="/Index"> <span class="text-red font-weight-bold">Scarlet</span>Screen </a>
+                <a class="navbar-brand order-md-1" asp-controller="Home" asp-action="Index">
+                    <span class="text-red font-weight-bold">Scarlet</span>Screen
+                </a>
                 <button class="navbar-toggler order-first" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>

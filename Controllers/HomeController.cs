@@ -13,11 +13,16 @@ public class HomeController : Controller
         _tmdbService = tmdbService;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        // Your homepage logic
-        return View();
+        var viewModel = new HomeModel();
+
+        // Get trending movie IDs
+        viewModel.TrendingMovieIds = await _tmdbService.GetTrendingMovieIds();
+
+        return View(viewModel);
     }
+
 
     [HttpGet]
     public async Task<IActionResult> Search(string query)

@@ -25,7 +25,6 @@
         public double vote_average { get; set; }
         public int vote_count { get; set; }
         public DateTime? release_date { get; set; }
-
-        public ResultContainer<Video> videos { get; set; }
+        public string? trailer_id { get; set; }
     }
 }

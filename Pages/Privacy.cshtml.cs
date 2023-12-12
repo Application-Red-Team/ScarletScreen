@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace RedApp_Webapp.Pages
+namespace ScarletScreen.Pages
 {
     public class PrivacyModel : PageModel
     {

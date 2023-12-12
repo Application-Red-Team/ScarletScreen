@@ -49,6 +49,9 @@ app.MapRazorPages();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllerRoute(
+        name: "home",
+        pattern: "{controller=Home}/{action=Index}/{id?}");
+    endpoints.MapControllerRoute(
         name: "movieDetails",
         pattern: "movies/{tmdb_id}",
         defaults: new { controller = "Movie", action = "Details" });

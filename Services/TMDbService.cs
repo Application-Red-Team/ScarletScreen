@@ -1,9 +1,11 @@
-﻿using ScarletScreen.Model;
+﻿using MySqlX.XDevAPI;
+using ScarletScreen.Model;
 using TMDbLib.Client;
 using TMDbLib.Objects.General;
 using TMDbLib.Objects.Movies;
 using TMDbLib.Objects.Reviews;
 using TMDbLib.Objects.Search;
+using TMDbLib.Objects.Trending;
 
 
 namespace ScarletScreen.Services
@@ -26,6 +28,16 @@ namespace ScarletScreen.Services
             Movie movie = await client.GetMovieAsync(tmdbId);
 
             return movie;
+        }
+        public async Task<List<int>> GetTrendingMovieIds()
+        {
+            // Initialize the TMDb client
+            TMDbClient client = new TMDbClient(_apiKey);
+             // Fetch trending movies
+            var trendingMovies = await client.GetTrendingMoviesAsync(TimeWindow.Week);
+
+            // Return only the TMDB IDs
+            return trendingMovies.Results.Select(movie => movie.Id).ToList();
         }
         public async Task<List<TmdbResult>> SearchTmdb(string query)
         {
@@ -61,5 +73,23 @@ namespace ScarletScreen.Services
                 vote_count = movie.VoteCount
             };
         }
+        private MovieModel MapToMovieModel(SearchMovie movie)
+        {
+            return new MovieModel
+            {
+                tmdb_id = movie.Id,
+                title = movie.Title,
+                overview = movie.Overview,
+                popularity = movie.Popularity,
+                genres = movie.GenreIds.Select(id => new Genre { Id = id }).ToList(),
+                backdrop_path = movie.BackdropPath,
+                poster_path = movie.PosterPath,
+                original_language = movie.OriginalLanguage,
+                vote_average = movie.VoteAverage,
+                vote_count = movie.VoteCount,
+                release_date = movie.ReleaseDate
+            };
+        }
+
     }
 }
