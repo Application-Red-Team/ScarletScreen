@@ -4,7 +4,8 @@
     using MongoDB.Bson.Serialization.Attributes;
     using System;
     using System.Collections.Generic;
-    
+    using TMDbLib.Objects.General;
+
     [BsonIgnoreExtraElements]
     public class MovieModel
     {
@@ -15,9 +16,9 @@
         public string title { get; set; }
         public string overview { get; set; }
         public int? runtime { get; set; }
-        public double popularity { get; set; }
+        public double? popularity { get; set; }
         public string? us_certification { get; set; }
-        public List<int> genre_ids { get; set; }
+        public List<Genre> genres { get; set; }
         public string backdrop_path { get; set; }
         public string poster_path { get; set; }
         public string original_language { get; set; }
@@ -25,6 +26,6 @@
         public int vote_count { get; set; }
         public DateTime? release_date { get; set; }
 
-        public bool video { get; set; }
+        public ResultContainer<Video> videos { get; set; }
     }
 }

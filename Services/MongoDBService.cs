@@ -30,10 +30,10 @@ namespace ScarletScreen.Services
             return _movieCollection.Find(filter).FirstOrDefault();
         }
 
-        public void AddDataFromTmdb(TmdbResult tmdbResult)
+        public async Task AddDataFromTmdb(TmdbResult tmdbResult)
         {
             // Fetch additional details from TMDb using the movie ID
-            Movie movieDetails = _tmdbService.GetMovieDetails(tmdbResult.id);
+            Movie movieDetails = await _tmdbService.GetMovieDetails(tmdbResult.id);
 
             // Serialize the data into your MovieModel format
             var movieModel = new MovieModel
@@ -44,7 +44,7 @@ namespace ScarletScreen.Services
                 runtime = tmdbResult.runtime,
                 popularity = tmdbResult.popularity,
                 us_certification = tmdbResult.us_certification,
-                genre_ids = tmdbResult.genre_ids,
+                genres = tmdbResult.genres,
                 backdrop_path = tmdbResult.backdrop_path,
                 poster_path = tmdbResult.poster_path,
                 original_language = tmdbResult.original_language,

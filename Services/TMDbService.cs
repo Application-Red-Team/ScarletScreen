@@ -17,39 +17,16 @@ namespace ScarletScreen.Services
             _apiKey = configuration["TMDbSettings:ApiKey"];
         }
 
-        public Movie GetMovieDetails(int tmdbId)
+        public async Task<Movie> GetMovieDetails(int tmdbId)
         {
             // Initialize the TMDb client
             TMDbClient client = new TMDbClient(_apiKey);
 
             // Fetch movie details using the TMDb ID
-            Movie movie = client.GetMovieAsync(tmdbId).Result;
+            Movie movie = await client.GetMovieAsync(tmdbId);
 
             return movie;
         }
-
-        public Credits GetMovieCredits(int tmdbId)
-        {
-            // Initialize the TMDb client
-            TMDbClient client = new TMDbClient(_apiKey);
-
-            // Fetch movie credits using the TMDb ID
-            Credits credits = client.GetMovieCreditsAsync(tmdbId).Result;
-
-            return credits;
-        }
-
-        public SearchContainer<ReviewBase> GetMovieReviews(int tmdbId)
-        {
-            // Initialize the TMDb client
-            TMDbClient client = new TMDbClient(_apiKey);
-
-            // Fetch movie reviews using the TMDb ID
-            SearchContainer<ReviewBase> reviews = client.GetMovieReviewsAsync(tmdbId).Result;
-
-            return reviews;
-        }
-
         public async Task<List<TmdbResult>> SearchTmdb(string query)
         {
             // Initialize the TMDb client
@@ -72,7 +49,6 @@ namespace ScarletScreen.Services
             return new TmdbResult
             {
                 backdrop_path = movie.BackdropPath,
-                genre_ids = movie.GenreIds,
                 id = movie.Id,
                 original_language = movie.OriginalLanguage,
                 original_title = movie.OriginalTitle,

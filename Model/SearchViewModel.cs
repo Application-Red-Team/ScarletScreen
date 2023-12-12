@@ -1,4 +1,5 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
+using TMDbLib.Objects.General;
 
 namespace ScarletScreen.Model
 {
@@ -11,7 +12,7 @@ namespace ScarletScreen.Model
     public class TmdbResult
     {
         public string backdrop_path { get; set; }
-        public List<int> genre_ids { get; set; }
+        public List<Genre> genres { get; set; }
         public int id { get; set; }
         public int? runtime {  get; set; }
         public string original_language { get; set; }

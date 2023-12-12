@@ -53,10 +53,6 @@ app.UseEndpoints(endpoints =>
         pattern: "movies/{tmdb_id}",
         defaults: new { controller = "Movie", action = "Details" });
     endpoints.MapControllerRoute(
-        name: "tvDetails",
-        pattern: "tv/{tmdb_id}",
-        defaults: new { controller = "TV", action = "Details" });
-    endpoints.MapControllerRoute(
         name: "search",
         pattern: "/search/{query?}",
         defaults: new { controller = "Home", action = "Search" });

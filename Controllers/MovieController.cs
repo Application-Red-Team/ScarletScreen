@@ -2,21 +2,24 @@
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using ScarletScreen.Model;
+using ScarletScreen.Services;
 using System;
-using TMDbLib.Objects.Movies;
+using System.Threading.Tasks;
 
 namespace ScarletScreen.Controllers
 {
     public class MovieController : Controller
     {
         private readonly IMongoCollection<MovieModel> _movieCollection;
+        private readonly TMDbService _tmdbService; // Inject TMDbService
 
-        public MovieController(IMongoDatabase database)
+        public MovieController(IMongoDatabase database, TMDbService tmdbService)
         {
             _movieCollection = database.GetCollection<MovieModel>("movies");
+            _tmdbService = tmdbService;
         }
 
-        public IActionResult Details(string tmdb_id)
+        public async Task<IActionResult> Details(string tmdb_id)
         {
             Console.WriteLine($"Attempting to retrieve movie with tmdb_id: {tmdb_id}");
 
@@ -33,12 +36,29 @@ namespace ScarletScreen.Controllers
 
             if (movie == null)
             {
-                Console.WriteLine("Movie not found!");
+                Console.WriteLine("Movie not found in the local database. Fetching from TMDb...");
+
+                // Fetch movie details from TMDb using the tmdb_id
+                var tmdbResult = await _tmdbService.GetMovieDetails(tmdbId);
+
+                // Convert TMDb Movie to MovieModel
+                var localMovie = MovieModelConverter.FromTMDbMovie(tmdbResult);
+
+                // Update the local database with TMDb data
+                _movieCollection.InsertOne(localMovie);
+
+                movie = localMovie;
+
+            }
+
+            if (movie == null)
+            {
+                Console.WriteLine("Movie not found in TMDb either.");
                 return NotFound();
             }
 
             Console.WriteLine($"Movie title: {movie.title}");
-                    // Add more debug lines as needed
+            // Add more debug lines as needed
 
             return View("MovieDetails", movie);
         }
