@@ -128,5 +128,10 @@ namespace ScarletScreen.Services
                 us_certification = usCertification
             };
         }
+
+        internal Task<int> GetTotalMovieCount()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

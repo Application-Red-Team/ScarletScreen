@@ -4,6 +4,32 @@
     Layout = "_Layout";
 }
 
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    img.poster {
+        width: 150px; /* Adjust the width of the posters */
+        height: auto;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+</style>
+
+
 <h1>Search Results</h1>
 
 @if (Model.TmdbResults != null && Model.TmdbResults.Any())
@@ -11,7 +37,9 @@
     <table>
         <thead>
             <tr>
+                <th>Poster</th>
                 <th>Title</th>
+                <th>Description</th>
                 <th>Release Date</th>
                 <!-- Add more headers based on your TMDb result properties -->
             </tr>
@@ -20,10 +48,24 @@
             @foreach (var tmdbResult in Model.TmdbResults)
             {
                 <tr>
-                    <td><a href="movies/@tmdbResult.id">
-                <img src="https://image.tmdb.org/t/p/original/@tmdbResult.poster_path" alt="@tmdbResult.title" width="200" height="300"/>
-                </a</td>
-                    <td><a href="@Url.Action("Details", "Movie", new { tmdb_id = tmdbResult.id })">@tmdbResult.title</a></td>
+                    <td style="text-align: center;">
+                        <a href="movies/@tmdbResult.id">
+                            <img src="https://image.tmdb.org/t/p/original/@tmdbResult.poster_path" alt="@tmdbResult.title" class="poster" />
+                        </a>
+                    </td>
+                    <td style="text-align: center;"><a href="@Url.Action("Details", "Movie", new { tmdb_id = tmdbResult.id })">@tmdbResult.title</a> 
+                     <br>
+                        @if (string.IsNullOrEmpty(tmdbResult.us_certification) || tmdbResult.us_certification.ToUpper() == "NR")
+                        {
+                            <p><strong>Rated: Not Rated</strong></p>
+                        }
+                        else
+                        {
+                            <p style="font-weight: bold;">Rated: @tmdbResult.us_certification</p>
+                        }
+                 </td>
+                   
+                    <td>@tmdbResult.overview</td>
                     <td>@tmdbResult.release_date?.ToShortDateString()</td>
                     <!-- Add more cells based on your TMDb result properties -->
                 </tr>

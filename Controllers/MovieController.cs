@@ -66,5 +66,6 @@ namespace ScarletScreen.Controllers
 
             return View("MovieDetails", movie);
         }
+
     }
 }

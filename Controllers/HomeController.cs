@@ -21,6 +21,9 @@ public class HomeController : Controller
         viewModel.TrendingMovieIds = await _tmdbService.GetTrendingMovieIds();
 
         return View(viewModel);
+
+
+
     }
 
 
@@ -37,4 +40,5 @@ public class HomeController : Controller
 
         return View(searchViewModel);
     }
+
 }
