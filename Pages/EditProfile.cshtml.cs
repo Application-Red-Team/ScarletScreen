@@ -26,7 +26,6 @@ namespace ScarletScreen.Pages
 
         public async Task<IActionResult> OnPostAsync()
         {
-            // Get the username of the currently logged-in user
             string username = TempData["LoggedInUsername"]?.ToString();
 
             bool userExists = _context.users.Any(u => u.user == username);
@@ -56,17 +55,13 @@ namespace ScarletScreen.Pages
                     user.ProfilePicturePath = $"/images/{fileName}";
                 }
 
-                // Update bio
                 user.Bio = Bio;
 
-                // Save changes to the database
                 await _context.SaveChangesAsync();
 
-                // Redirect back to the profile page
                 return RedirectToPage("/Profile", new { username });
             }
 
-            // Handle the case where the user is not found
             TempData["ErrorMessage"] = "User not found.";
             return Page();
         }
