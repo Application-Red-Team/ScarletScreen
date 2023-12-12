@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using ScarletScreen.Model;
@@ -15,7 +16,7 @@ namespace ScarletScreen.Pages
             _context = context;
         }
 
-        public async Task OnPostAsync(string username, string currentPassword, string newPassword)
+        public async Task<IActionResult> OnPostAsync(string username, string currentPassword, string newPassword)
         {
             var user = await _context.users.FirstOrDefaultAsync(u => u.user == username && u.pass == currentPassword);
 
@@ -26,14 +27,14 @@ namespace ScarletScreen.Pages
                 // Save changes to the database
                 await _context.SaveChangesAsync();
 
-                // Redirect or show a success message
+                // Redirect to the "Confirmation2" page
                 TempData["SuccessMessage"] = "Password changed successfully.";
-                RedirectToPage("/Profile", new { username });
+                return RedirectToPage("/Confirmation2");
             }
             else
             {
                 TempData["ErrorMessage"] = "Invalid username or password.";
-                RedirectToPage("/ChangePassword");
+                return RedirectToPage("/ChangePassword");
             }
         }
     }
