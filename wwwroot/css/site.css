@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;700&display=swap');
+
 html {
   font-size: 14px;
 }
@@ -62,20 +64,57 @@ body {
         }
 
 /* New Movie Section */
-.card-body {
-    margin: 0;
-    padding: 10px;
-    color: black;
+.card-text {
+    opacity: 0;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
 }
 
+/* Show card text on hover */
+.card:hover .card-text {
+    opacity: 1;
+    transform: translateY(-100%);
+}
 
+/* Adjust card-body styles */
+.card-body {
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    color: black;
+    overflow: hidden; /* Hide overflowing text */
+    position: relative; /* Establish positioning context */
+}
 
+/* Adjust card styles */
 .card {
     border: solid; /* Gives spacing around image */
     background: white;
+    position: relative; /* Ensure positioning context for absolute positioning of text */
+    overflow: hidden; /* Ensure the text doesn't overflow the card */
 }
 
-.card-img-top {
-    object-fit: cover; /* Ensure the image covers the entire card */
-}
+    /* Position the white box over the image */
+    .card .card-text {
+        position: absolute;
+        bottom: -17px;
+        left: 0;
+        width: 100%;
+        background: rgba(255, 255, 255, 1); /* Semi-transparent background */
+        padding: 1px;
+        transition: transform 0.3s ease;
+        text-align: center; /* Center the text */
+        box-sizing: border-box; /* Include padding in width calculation */
+        z-index: 1; /* Ensure the text box appears over the poster */
+    }
 
+    /* Move the white box along with the text */
+    .card:hover .card-text {
+        transform: translateY(0);
+    }
+
+/* Center the title within card-text */
+.card-text h5 {
+    text-align: center;
+    margin-bottom: 5px; /* Add spacing below the title */
+}

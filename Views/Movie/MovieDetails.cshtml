@@ -4,12 +4,41 @@
     ViewData["Title"] = Model.title;
     Layout = "_Layout";
 }
+@functions {
+    string GetLetterGrade(int percentage)
+    {
+        string letterGrade;
+        if (percentage >= 90)
+        {
+            letterGrade = "A";
+        }
+        else if (percentage >= 80)
+        {
+            letterGrade = "B";
+        }
+        else if (percentage >= 70)
+        {
+            letterGrade = "C";
+        }
+        else if (percentage >= 60)
+        {
+            letterGrade = "D";
+        }
+        else
+        {
+            letterGrade = "F";
+        }
+        return letterGrade;
+    }
+}
+
 
 <head>
     <link rel="stylesheet" href="~/css/moviepage.css" asp-append-version="true" />
 </head>
 
 <main class="movie-page">
+    <div style="border: 2px solid black; padding: 20px;">
     <div class="poster-container">
         <img src="https://image.tmdb.org/t/p/original/@Model.poster_path" alt="@Model.title" class="poster">
         @* <div class="video-container">
@@ -23,55 +52,110 @@
 
     <div class="movie-details">
         <h1 class="title">@Model.title</h1>
-        <p class="rating">Rating: @Model.vote_average/10</p>
-        <p class="description">@Model.overview</p>
-        <p class="runtime">Runtime: @Model.runtime minutes</p>
-        <p class="popularity">Popularity: @Model.popularity</p>
-        <p class="certification">
-            @if (Model.us_certification == "NR")
-            {
-                <text>MPAA Rating: Not Rated</text>
-            }
-            else
-            {
-                <text>MPAA Rating: @Model.us_certification</text>
-            }
+
+        <p class="rating">
+           <strong> Rating
+            @{
+                    int percentage = (int)(Model.vote_average * 10);
+                    string letterGrade = GetLetterGrade(percentage);
+                }
+            @percentage% - (@letterGrade)</strong>
+            <span style="font-weight: bold; color: black;"> | Runtime: @Model.runtime minutes</span>
         </p>
-
-        <p class="genres">Genres: @string.Join(", ", @Model.genres.Select(genre => genre.Name))</p>
-        <p class="language">Original Language: @GetLanguageName(@Model.original_language)</p>
-        <p class="vote-count">Vote Count: @Model.vote_count</p>
-        <div>
-            @if (@Model.release_date.HasValue)
-            {
-                <span>Release Date: @Model.release_date.Value.ToShortDateString()</span>
-            }
-            else
-            {
-                <span>Release Date: Unknown</span>
-            }
         </div>
-        <!--Trailer URL here-->
-
-        <button id="watchNowBtn" class="btn btn-primary">Watch Now</button>
-
-        <!-- Create a modal for streaming options -->
-        <div id="streamingModal" class="modal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <h2>Streaming Options</h2>
-                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-                <ul id="streamingserviceList">
-                    <!-- Add streaming service options dynamically with JavaScript -->
-                </ul>
-            </div>
-        </div>
-
-        <!-- Add other details as needed -->
-
-        <h1 class="title">Reviews</h1>
-        <p class="Reviews">User reviews go here.</p>
     </div>
 
-    <!-- Rest of the content (cast & crew, reviews) goes here -->
+    <div class="movie-details">
+        <p class="description" style="font-size: 1.2em;">@Model.overview</p>
+        <div class="container">
+            <div class="row justify-content-center">
+                <!-- Movie Details Box -->
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- Movie Details Content -->
+                            <p class="certification" style="font-size: 1.2em; font-weight: bold;">
+                                    @if (Model.us_certification == "NR")
+                                    {
+                                        <text>MPAA Rating: Not Rated</text>
+                                    }
+                                    else
+                                    {
+                                        <text>MPAA Rating: @Model.us_certification</text>
+                                    }
+                                </p>
+                            <p class="genres" style="font-size: 1.2em; font-weight: bold;">Genres: @string.Join(", ", @Model.genres.Select(genre => genre.Name))</p>
+                            <p class="language" style="font-size: 1.2em; font-weight: bold;">Original Language: @GetLanguageName(@Model.original_language)</p>
+                            <div style="font-size: 1.2em; font-weight: bold;">
+                                    @if (@Model.release_date.HasValue)
+                                    {
+                                        <span>Release Date: @Model.release_date.Value.ToShortDateString()</span>
+                                    }
+                                    else
+                                    {
+                                        <span>Release Date: Unknown</span>
+                                    }
+                           </div>
+                       </div>
+                    </div>
+                </div>
+           </div>
+     <br>
+                <!-- Carousel for Movie Trailers -->
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <!-- Placeholder for the carousel -->
+                    <!-- You'll need to integrate a carousel component here for movie trailers -->
+                    <!-- Example: Bootstrap Carousel -->
+                    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <!-- Slides for trailers -->
+                            <div class="carousel-item active">
+                                <img src="https://via.placeholder.com/800x400.png" class="d-block w-100" alt="Trailer 1">
+                            </div>
+                            <!-- Add more carousel items for additional trailers -->
+                        </div>
+                        <!-- Controls for the carousel -->
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+             </div>
+        </div>
+   </div>
+
+    <br>
+
+    <!-- Centered content -->
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+            <!-- Button -->
+            <button id="watchNowBtn" class="btn btn-primary">Watch Now</button>
+
+            <!-- Streaming Modal -->
+            <div id="streamingModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h2>Streaming Options</h2>
+                    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                    <ul id="streamingserviceList">
+                        <!-- Add streaming service options dynamically with JavaScript -->
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Other Details -->
+            <h1 class="title">Reviews</h1>
+            <p class="Reviews">User reviews go here.</p>
+
+            <!-- Rest of the content (cast & crew, reviews) goes here -->
+        </div>
+    </div>
+
 </main>

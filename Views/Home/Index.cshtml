@@ -24,12 +24,13 @@
 
                     <div class="col-md-3 mb-4">
                         <div class="card">
+                            <p class="card-text">@movieDetails.Overview</p>
                             <a href="@Url.Action("Details", "Movie", new { tmdb_id = movieDetails.Id })">
                                 <img src="https://image.tmdb.org/t/p/original/@movieDetails.PosterPath" alt="@movieDetails.Title" class="card-img-top">
                             </a>
                             <div class="card-body">
                                 <h5 class="card-title">@movieDetails.Title</h5>
-                                <p class="card-text">@movieDetails.Overview</p>
+                       
                                 <!--<a href="https://www.youtube.com/watch?v=" target="_blank" class="btn btn-primary">Watch Trailer</a> -->
                             </div>
                         </div>
