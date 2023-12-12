@@ -42,13 +42,6 @@
     <div class="poster-container">
         <img src="https://image.tmdb.org/t/p/original/@Model.poster_path" alt="@Model.title" class="poster">
         
-        <div class="video-container">
-        <!-- Replace the hardcoded iframe source with dynamic data if available -->
-        @if (!string.IsNullOrEmpty(Model.VideoKey))
-        {
-        <a href src="https://www.youtube.com/watch?v=@Model.VideoKey" frameborder="0" allowfullscreen></a>
-        }
-        </div>
     </div>
 
     <div class="movie-details">
@@ -112,8 +105,12 @@
                         <div class="carousel-inner">
                             <!-- Slides for trailers -->
                             <div class="carousel-item active">
-                                <img src="https://via.placeholder.com/800x400.png" class="d-block w-100" alt="Trailer 1">
-                            </div>
+                                    <!-- Replace the hardcoded iframe source with dynamic data if available -->
+                                    @if (!string.IsNullOrEmpty(Model.VideoKey))
+                                    {
+                                        <iframe width="560" height="315" src="https://www.youtube.com/watch?v=@Model.VideoKey" frameborder="0" allowfullscreen> </iframe>
+                                    }
+                                </div>
                             <!-- Add more carousel items for additional trailers -->
                         </div>
                         <!-- Controls for the carousel -->
