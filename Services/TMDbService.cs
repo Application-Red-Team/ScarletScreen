@@ -27,8 +27,10 @@ namespace ScarletScreen.Services
             // Fetch movie details using the TMDb ID
             Movie movie = await client.GetMovieAsync(tmdbId, MovieMethods.Videos);
 
+
             return movie;
         }
+
         public async Task<List<int>> GetTrendingMovieIds()
         {
             // Initialize the TMDb client
