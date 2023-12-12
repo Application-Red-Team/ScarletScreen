@@ -2,6 +2,10 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc;
 using ScarletScreen.Model;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
+using System.IO;
+using System.Threading.Tasks;
+using System.Security.Claims;
 
 namespace ScarletScreen.Pages
 {
@@ -22,8 +26,10 @@ namespace ScarletScreen.Pages
 
         public async Task<IActionResult> OnPostAsync()
         {
-            // Replace with the actual way you get the username (e.g., from the logged-in user's session)
-            string username = "Cheetahportal";
+            // Get the username of the currently logged-in user
+            string username = TempData["LoggedInUsername"]?.ToString();
+
+            bool userExists = _context.users.Any(u => u.user == username);
 
             // Find the user in the database
             var user = await _context.users.FirstOrDefaultAsync(u => u.user == username);
@@ -34,11 +40,12 @@ namespace ScarletScreen.Pages
                 if (ProfilePicture != null)
                 {
                     // Get the user's pictures directory
-                    var picturesDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
+                    var imagesDirectory = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
 
                     // Generate a unique filename for the profile picture
                     string fileName = $"{username}_profile_picture{Path.GetExtension(ProfilePicture.FileName)}";
-                    string filePath = Path.Combine(picturesDirectory, fileName);
+
+                    string filePath = Path.Combine(imagesDirectory, fileName);
 
                     using (var stream = new FileStream(filePath, FileMode.Create))
                     {
@@ -46,7 +53,7 @@ namespace ScarletScreen.Pages
                     }
 
                     // Update the user's profile picture path in the database
-                    user.ProfilePicturePath = filePath;
+                    user.ProfilePicturePath = $"/images/{fileName}";
                 }
 
                 // Update bio
@@ -64,5 +71,4 @@ namespace ScarletScreen.Pages
             return Page();
         }
     }
-
 }

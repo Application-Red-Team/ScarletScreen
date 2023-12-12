@@ -36,6 +36,7 @@ namespace ScarletScreen.Pages
             if (user != null)
             {
                 // If the user is found in the database, redirect to the profile page
+                TempData["LoggedInUsername"] = Username;
                 return RedirectToPage("/Profile", new { username = Username });
             }
             else
